@@ -3,6 +3,7 @@ import argparse
 import pytz
 
 from datetime import datetime, timedelta
+import datetime as datetimeP
 
 def sendApiGo(cc_name,dsStatus,faustStatus,timestamp):
     payload = {"Ds_status":dsStatus,"Faust_status": faustStatus,"Timestamp": timestamp}
@@ -69,15 +70,18 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--logAforoDs', type=str, required=True, help='Absolute address of the Aforo Ds log')
 
     args = parser.parse_args()
+    
+    flujoFaust, aforoFaust, flujoDs, aforoDs = False,False,False,False
+    ecuador_now = datetime.now(pytz.timezone('America/Guayaquil')).time().replace(microsecond = 0)
+    start = datetimeP.time(9, 0, 0)
+    end = datetimeP.time(22, 0, 0)
+    if time_in_range(start,end,ecuador_now):
+        flujoFaust = getStatusFaust(args.logFlujoFaust,'#--Flujo--#',args.thresholdMinutes)
+        aforoFaust = getStatusFaust(args.logAforoFaust,'#--Aforo--#',args.thresholdMinutes)
+        flujoDs = getStatusDs(args.logFlujoDs,'#--Flujo--#',args.thresholdMinutes)
+        aforoDs = getStatusDs(args.logAforoDs,'#--Aforo--#',args.thresholdMinutes)
 
-    flujoFaust = getStatusFaust(args.logFlujoFaust,'#--Flujo--#',args.thresholdMinutes)
-    aforoFaust = getStatusFaust(args.logAforoFaust,'#--Aforo--#',args.thresholdMinutes)
-    flujoDs = getStatusDs(args.logFlujoDs,'#--Flujo--#',args.thresholdMinutes)
-    aforoDs = getStatusDs(args.logAforoDs,'#--Aforo--#',args.thresholdMinutes)
-
-    faustStatus = '0'
-    dsStatus = '0'
-
+    faustStatus, dsStatus = '0', '0'
     if flujoFaust or aforoFaust:
         faustStatus = '1'
     if flujoDs or aforoDs:
