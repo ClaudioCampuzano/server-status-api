@@ -13,7 +13,7 @@ def time_in_range(start, end, x):
 
 def sendApiGo(cc_name,dsStatus,faustStatus,timestamp):
     payload = {"Ds_status":dsStatus,"Faust_status": faustStatus,"Timestamp": timestamp}
-    res = requests.put('http://107.20.91.241:2711/omia/alerts/%s' % cc_name, json=payload)
+    res = requests.put('http://-:-/omia/alerts/%s' % cc_name, json=payload)
     if res.status_code == 200:
         print('Ok')
     else:
