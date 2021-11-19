@@ -5,6 +5,12 @@ import pytz
 from datetime import datetime, timedelta
 import datetime as datetimeP
 
+def time_in_range(start, end, x):
+    if start <= end:
+        return (start <= x <= end)
+    else:
+        return (start <= x or x <= end)
+
 def sendApiGo(cc_name,dsStatus,faustStatus,timestamp):
     payload = {"Ds_status":dsStatus,"Faust_status": faustStatus,"Timestamp": timestamp}
     res = requests.put('http://107.20.91.241:2711/omia/alerts/%s' % cc_name, json=payload)
