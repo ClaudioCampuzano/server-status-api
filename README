@@ -7,9 +7,7 @@ Script para reportar a una API, el estado de ciertos procesos
 2. Requisitos
 ===============================================================================
 
-virtualenv env --python=python3
-source env/bin/activate
-pip3 install -r requirements.txt
+virtualenv env --python=python3 && source env/bin/activate && pip3 install -r requirements.txt
 
 ===============================================================================
 3. Uso
