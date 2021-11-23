@@ -49,12 +49,9 @@ def getStatusFaust(filename, analyticalType, thresholdMinutes):
     try:
         for index, line in enumerate(reversed(list(open(filename)))):
             faust_process_SPLIT = line.rstrip().replace('[', '').replace(']','').split(' ')
-            if len(faust_process_SPLIT) >= 3:
-                if faust_process_SPLIT[3]=="WARNING":
-                    Faust_process = faust_process_SPLIT[0]+' '+faust_process_SPLIT[1].split(",")[0]
-                    break
-                elif faust_process_SPLIT[3]=="ERROR":
-                    return True
+            if len(faust_process_SPLIT) >= 3 and faust_process_SPLIT[3]=="WARNING":
+                Faust_process = faust_process_SPLIT[0]+' '+faust_process_SPLIT[1].split(",")[0]
+                break
     except:
         Faust_process = ''
         print('Problemas al abrir el archivo '+analyticalType+' Faust Log')
