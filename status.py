@@ -43,7 +43,7 @@ def getStatusDs(filename, analyticalType, thresholdMinutes):
         else:
             return False
     else:
-        return False
+        return True
 
 def getStatusFaust(filename, analyticalType, thresholdMinutes):
     try:
@@ -64,7 +64,7 @@ def getStatusFaust(filename, analyticalType, thresholdMinutes):
         else:
             return False
     else:
-        return False
+        return True
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Program that reports metrics from the computer to Slack')
